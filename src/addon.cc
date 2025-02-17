@@ -193,12 +193,32 @@ Napi::Value deleteKey(const Napi::CallbackInfo& info) {
   return info.Env().Null();
 }
 
+Napi::Value deleteValue(const Napi::CallbackInfo& info) {
+  auto env = info.Env();
+  auto key = openKey(info, KEY_SET_VALUE);
+  if (!key) {
+    return env.Null();
+  }
+
+  auto name = info[2].ToString().Utf16Value();
+
+  LSTATUS error;
+  if ((error = RegDeleteValueW(key, (LPCWSTR)name.c_str())) != ERROR_SUCCESS) {
+    RegCloseKey(key);
+    return Number::New(env, (uint32_t)error);
+  }
+
+  RegCloseKey(key);
+  return env.Null();
+}
+
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
   exports.Set("getKey", Napi::Function::New(env, getKey));
   exports.Set("setValue", Napi::Function::New(env, setValue));
   exports.Set("listSubkeys", Napi::Function::New(env, listSubkeys));
   exports.Set("createKey", Napi::Function::New(env, createKey));
   exports.Set("deleteKey", Napi::Function::New(env, deleteKey));
+  exports.Set("deleteValue", Napi::Function::New(env, deleteValue));
   return exports;
 }
 

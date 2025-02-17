@@ -1,32 +1,33 @@
 {
   "name": "windows-native-registry",
   "version": "3.2.2",
-  "main": "index.js",
+  "main": "dist/native-registry.js",
   "types": "index",
-  "author": "Eugene Pankov",
+  "author": "David Renelt",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Eugeny/windows-native-registry.git"
+    "url": "git://github.com/herrbasan/windows-native-registry.git"
   },
-  "homepage": "https://github.com/Eugeny/windows-native-registry",
+  "homepage": "https://github.com/herrbasan/windows-native-registry",
   "bugs": {
-    "url": "https://github.com/Eugeny/windows-native-registry/issues"
+    "url": "https://github.com/herrbasan/windows-native-registry/issues"
   },
   "os": [
     "win32"
   ],
   "dependencies": {
-    "node-addon-api": "^4.3.0"
+    "node-addon-api": "^8.3.0"
   },
   "devDependencies": {
     "@types/node": "^15.0.2",
-    "mocha": "^8.0.1",
-    "node-gyp": "^6.0.1",
-    "typescript": "^4.5.5"
+    "node-gyp": "^11.1.0"
   },
   "scripts": {
-    "build": "tsc -d index.ts",
-    "test": "mocha"
+    "build": "node-gyp rebuild"
+  },
+  "fork": {
+    "originalAuthor": "Eugene Pankov",
+    "originalRepository": "https://github.com/Eugeny/windows-native-registry"
   }
 }

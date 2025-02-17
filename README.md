@@ -1,6 +1,8 @@
 # windows-native-registry
 
-[![Node CI](https://github.com/Eugeny/windows-native-registry/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Eugeny/windows-native-registry/actions/workflows/nodejs.yml)
+This is a fork of [windows-native-registry](https://github.com/Eugeny/windows-native-registry) by Eugene Pankov with additional improvements.
+
+[![Node CI](https://github.com/herrbasan/windows-native-registry/actions/workflows/nodejs.yml/badge.svg)](https://github.com/herrbasan/windows-native-registry/actions/workflows/nodejs.yml)
 
 * No external processes.
 * Node-API
@@ -42,7 +44,16 @@ export function createRegistryKey (root: HK, path: string)
 export function deleteRegistryKey (root: HK, path: string)
 ```
 
+## Changes from original
+- Removed Typescript
+- Added a function to delete values
+- Added a convenience function to register ProgID's and file associations in one go.
+- Added a convenience function to remove ProgID's and file associations in one go.
+- Removed unwanted libraries
+- Creates a N-API Modile alongside the Javascript in a dist folder to directly use them in electron Projects
+
 ## Contributors ✨
+Original project by [Eugene Pankov](https://github.com/Eugeny)
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -62,3 +73,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## License
+MIT License - See [LICENSE](LICENSE) for details
