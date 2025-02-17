@@ -44,6 +44,53 @@ export function createRegistryKey (root: HK, path: string)
 export function deleteRegistryKey (root: HK, path: string)
 ```
 
+Example Usage:
+```js
+const path = require('path');
+const reg = require('../libs/native-registry.js');
+
+
+async function registry(task, exe_path, app_path) {
+    return new Promise(async (resolve, reject) => {
+        let icon_path = path.join(path.dirname(app_path), 'icons');
+        let registry_data = {
+            app: {
+                name: 'SoundApp',
+                exe: path.basename(exe_path),
+            },
+            filetypes: {
+                soundapp_mp3: {
+                    description: 'SoundApp Audio File',
+                    icon: 'mp3.ico',
+                    extensions: ['mp3'],
+                }
+            }
+        }
+     
+        if (task === 'register') {
+            for (let key in registry_data.filetypes) {
+                await reg.registerProgID({
+                    progID: key,
+                    description: registry_data.filetypes[key].description,
+                    app_name: registry_data.app.name,
+                    icon_path: path.resolve(icon_path, registry_data.filetypes[key].icon),
+                    command: exe_path,
+                    extensions: registry_data.filetypes[key].extensions,
+                })
+            }
+        }
+        else if (task === 'unregister') {
+            for (let key in registry_data.filetypes) {
+                await reg.removeProgID({ progID: key, extensions: registry_data.filetypes[key].extensions});
+            }
+        }
+  
+        resolve(true);
+    });
+}
+
+```
+
 ## Changes from original
 - Removed Typescript
 - Added a function to delete values
